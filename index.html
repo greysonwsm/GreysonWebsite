@@ -76,8 +76,8 @@
 <body>
 
 <div class="signup-container">
-    <h1 class="custom-header">Create Account</h1>
-    <h2 class="custom-subheader">Sign up to get started</h2>
+    <h1>Create Account</h1>
+    <h2>Sign up to get started</h2>
 
     <div class="error-message" id="error-message"></div>
     <div class="success-message" id="success-message"></div>
@@ -103,23 +103,21 @@
         };
 
         try {
-            const response = await fetch('https://yourserver.com/signup', { // Replace with your server endpoint
+            const response = await fetch('http://localhost:5000/signup', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData)
             });
 
             const data = await response.json();
 
             if (data.success) {
-                successMessage.textContent = 'Account created successfully!';
+                successMessage.textContent = data.message;
                 successMessage.style.display = 'block';
                 errorMessage.style.display = 'none';
                 form.reset();
             } else {
-                errorMessage.textContent = data.message || 'Sign up failed!';
+                errorMessage.textContent = data.message;
                 errorMessage.style.display = 'block';
                 successMessage.style.display = 'none';
             }
